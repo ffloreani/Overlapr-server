@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var ctrlCharts = require('./controllers/charts');
-var ctrlPaf = require('./controllers/paf');
+var ctrlPaf = require('./controllers/pafs');
 
 // Charts
 router.get('/charts', ctrlCharts.getChart);
