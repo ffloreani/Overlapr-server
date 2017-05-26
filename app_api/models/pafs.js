@@ -5,11 +5,6 @@ var pafSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true
-	},
-	processed: {
-		type: Boolean,
-		required: true,
-		default: false
 	}
 });
 
