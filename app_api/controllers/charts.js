@@ -14,20 +14,6 @@ module.exports.getChart = function (req, res) {
     });
 };
 
-// POST Add chart_1 to mongoose
-module.exports.postChart = function(req, res) {
-  var chart = new Chart();
-
-  chart.fileUri = path.normalize(__dirname + '/../../charts/chart_1.txt');
-  console.log(chart.fileUri);
-
-  chart.save(function (err) {
-    if (err) return handleError(err, res);
-
-    res.status(201).send({message: "Successfully added file!"});
-  });
-}
-
 // DELETE
 module.exports.deleteChart = function(req, res) {
   var deleteUri = path.normalize(__dirname + '/../../charts/' + req.params.name);
