@@ -7,12 +7,14 @@ var ctrlResults = require('./controllers/results');
 
 // Charts
 router.get('/charts', ctrlCharts.getChart);
+router.post('/charts', ctrlCharts.postChart);
 router.delete('/charts', ctrlCharts.deleteChart);
 
 // PAF
 router.post('/pafs', ctrlPaf.postPaf);
 
 // Results
+router.get('/results', ctrlResults.getForm);
 router.post('/results', ctrlResults.postResult);
 
 // 404

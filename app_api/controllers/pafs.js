@@ -6,6 +6,7 @@ var format = require('util').format;
 
 const exec = require('child_process').exec;
 
+var Busboy = require('busboy');
 var Paf = mongoose.model('Paf');
 
 //POST PAF file

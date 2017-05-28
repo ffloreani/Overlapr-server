@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 var dbURI = 'mongodb://overlaprAdmin:bananko!@ds151661.mlab.com:51661/overlapr-db';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGODB_URI;
@@ -35,3 +37,4 @@ process.on('SIGINT', function () {
 // expose schemas and models
 require('./charts');
 require('./pafs');
+require('./results');
