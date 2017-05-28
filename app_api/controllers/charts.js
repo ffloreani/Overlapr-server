@@ -30,7 +30,7 @@ module.exports.postChart = function(req, res) {
 
 // DELETE
 module.exports.deleteChart = function(req, res) {
-  var deleteUri = path.normalize(__dirname + '/../../charts' + req.params.name);
+  var deleteUri = path.normalize(__dirname + '/../../charts/' + req.params.name);
 
   Chart.findOneAndRemove({fileUri : deleteUri}, function (err) {
     if(err) return handleError(err, res);
