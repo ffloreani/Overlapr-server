@@ -13,7 +13,7 @@ module.exports.getChart = function (req, res) {
         var file = chart.fileUri;
         res.download(file);
       } else {
-        res.status(404).send("Failed to get chart");
+        res.status(404).send("No more charts");
       }
     });
 };
