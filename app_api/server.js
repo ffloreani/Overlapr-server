@@ -14,7 +14,6 @@ router.delete('/charts', ctrlCharts.deleteChart);
 router.post('/pafs', ctrlPaf.postPaf);
 
 // Results
-router.get('/results', ctrlResults.getForm);
 router.post('/results', ctrlResults.postResult);
 
 // 404

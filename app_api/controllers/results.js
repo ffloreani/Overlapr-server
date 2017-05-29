@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var path = require('path');
 var fs = require('fs');
-var os = require('os');
 
 var Busboy = require('busboy');
 var Result = mongoose.model('Result');

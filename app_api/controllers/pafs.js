@@ -8,6 +8,7 @@ const exec = require('child_process').exec;
 
 var Busboy = require('busboy');
 var Paf = mongoose.model('Paf');
+var Chart = mongoose.model('Chart');
 
 //POST PAF file
 module.exports.postPaf = function(req, res) {
@@ -15,9 +16,10 @@ module.exports.postPaf = function(req, res) {
   var busboy = new Busboy({ headers: req.headers });
   
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    var saveTo = path.normalize(__dirname + '/../../pafs/' + path.basename(fieldname));
-    pafData.fileUri = saveTo;
+    var saveTo = path.normalize(__dirname + '/../../pafs/' + path.basename(filename));
+    console.log('Uploading: ' + saveTo);
 
+    pafData.fileUri = saveTo;
     file.pipe(fs.createWriteStream(saveTo));
   });
   
@@ -26,22 +28,31 @@ module.exports.postPaf = function(req, res) {
       if (err) handleError(err, res);
 
       // Make a system call to run the PAF processing jar
-      exec('ls', (error, stdout, stderr) => {
+      const jarPath = '"' + path.normalize(__dirname + '/../../jar') + '/PAF_parser.jar"';
+      const outputFileName = new Date().getTime() + ".txt";
+      const parserArgs = '"' + pafData.fileUri + '" "' + path.normalize(__dirname + '/../../charts/' + outputFileName) + '"';
+      const jarCmd = '/usr/bin/java -jar ' + jarPath + ' ' + parserArgs;
+      
+      console.log("JAR command: " + jarCmd);
+      exec(jarCmd, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
           return;
         }
 
-        console.log(`exec stdout: ${stdout}`);
-        console.log(`exec stderr: ${stderr}`);
+        console.log(`exec stdout:\n${stdout}`);
+        var chartData = new Chart();
+        chartData.fileUri = path.normalize(__dirname + '/../../charts/' + outputFileName);
+        chartData.save(function (err) {
+          if (err) handleError(err, res);
+        });
       });
 
-      res.writeHead(200, { 'Connection': 'close' });
-      res.status(201).send({message : "Upload successful!"});
+      res.status(201).send({message : "Successfully uploaded " + outputFileName + "!"});
     });
   });
 
-  return req.pipe(busBoy);
+  return req.pipe(busboy);
 };
 
 function handleError(err, res){
