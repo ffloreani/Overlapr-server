@@ -41,9 +41,12 @@ module.exports.postPaf = function(req, res) {
         }
 
         console.log(`exec stdout:\n${stdout}`);
+        console.log(`exec stderr:\n${stderr}`);
+        
         var chartData = new Chart();
         chartData.fileUri = path.normalize(__dirname + '/../../charts/' + outputFileName);
         chartData.save(function (err) {
+          console.log("Saving chart data");
           if (err) handleError(err, res);
         });
       });
