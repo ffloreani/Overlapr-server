@@ -21,7 +21,7 @@ module.exports.postResult = function(req, res) {
     resData.save(function (err) {
       if (err) handleError(err, res);
 
-      res.status(201).send({message : "Upload successful!"});
+      res.status(201).send("Upload successful!");
     });
   });
 
@@ -30,5 +30,5 @@ module.exports.postResult = function(req, res) {
 
 function handleError(err, res){
   console.log(err);
-  res.status(500).send({message : "Server error!"});
+  res.status(500).send("Server error!");
 }

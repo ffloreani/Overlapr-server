@@ -41,8 +41,7 @@ module.exports.postPaf = function(req, res) {
         }
 
         console.log(`exec stdout:\n${stdout}`);
-        console.log(`exec stderr:\n${stderr}`);
-        
+
         var chartData = new Chart();
         chartData.fileUri = path.normalize(__dirname + '/../../charts/' + outputFileName);
         chartData.save(function (err) {
@@ -51,7 +50,7 @@ module.exports.postPaf = function(req, res) {
         });
       });
 
-      res.status(201).send({message : "Successfully uploaded " + outputFileName + "!"});
+      res.status(201).send("Successfully uploaded " + outputFileName + "!");
     });
   });
 
@@ -60,5 +59,5 @@ module.exports.postPaf = function(req, res) {
 
 function handleError(err, res){
 	console.log(err);
-	res.status(500).send({message : "Server error!"});
+	res.status(500).send("Server error!");
 }
